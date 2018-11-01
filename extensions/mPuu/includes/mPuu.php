@@ -736,6 +736,9 @@ class mPuu {
             } // then cannot write to the file
             fclose ( $outHandle );
         } // then this is a valid namespace and the personalinformation data can be stored
+        else {
+            $this->mPuuJavaScriptAlert ( 'mPuu_parse_not_allowed_to_save_XML' );
+        } // else we are not allowed to write XML database file
     
         // Close all the remaining open paths
         fclose ( $inpHandle );
