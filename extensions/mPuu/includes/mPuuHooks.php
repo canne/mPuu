@@ -102,7 +102,7 @@ class mPuuHooks {
                 return false;
             } // Then do not allow saving of an existing, failed article
             else {
-                $mPuu->mPuuJavaScri1ptAlert ( 'mPuu_newfailednotsaved', "", $errFileName );
+                $mPuu->mPuuJavaScriptAlert ( 'mPuu_newfailednotsaved', "", $errFileName );
                 return wfMessage('mPuu_newfailednotsaved2' );;
             } // Else allow saving of a non-yet-existing, failed article
         } // then XML parsing failed
