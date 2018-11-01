@@ -778,7 +778,7 @@ class mPuu {
         while ( !$noMore1stElement ) {
             // 1ST ELEMENT
             if ( $nof1stElement > 0 ) {
-                if ( mPuuProbeNewLine ( $inpHandle, $probeOnly, $useFile, $sLines, $errFile ) == 'PARSE_ERROR' ) {
+                if ( $this->mPuuProbeNewLine ( $inpHandle, $probeOnly, $useFile, $sLines, $errFile ) == 'PARSE_ERROR' ) {
                     $noMore1stElement = true;
                     break;
                 } // Then did not find a new line command. That normally means: no more 1st elements
