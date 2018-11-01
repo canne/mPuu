@@ -20,7 +20,7 @@
 
 class mPuuHooks {
 
-    private mPuu;
+    private $mPuu;
 
 	/**
 	 * Initialization
