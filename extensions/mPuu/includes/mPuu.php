@@ -535,16 +535,16 @@ class mPuu {
     
         // Save article text into a file for line based parsing
         if ( !$inpHandle = fopen( $inpFileName, "w" ) ) {
-            $this->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fopen (${inpFileName})") );
+            $this->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fopen (${inpFileName},w)") );
             return 'PARSE_ERROR';
         } // then cannot open the file for writing
         if ( fwrite( $inpHandle, $text ) === FALSE) {
-            $this->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fwrite (${inpFileName})") );
+            $this->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fwrite (${inpFileName},$(text))") );
             return 'PARSE_ERROR';
         } // then cannot write into the file
         fclose( $inpHandle );
         if ( !$inpHandle = fopen( $inpFileName, "r" ) ) {
-            $this->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fopen (${inpFileName})") );
+            $this->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fopen (${inpFileName},r)") );
             return 'PARSE_ERROR';
         } // then cannot open the file for writing
     
