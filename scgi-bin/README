@@ -1,0 +1,17 @@
+mPuu note:
+
+- all the files in this dicectory (not the directory itself) are physically
+  located in this directory.
+- they are _hard_ linked to with a corresponding file name from directory
+  $HOME/mPuu/scgi-bin
+- the development work and CVS management of these files takes place
+  in the $HOME/mPuu/scgi-bin directory
+- the files need to import Python library files from ../../mPuu/lib,
+  therefore relocation of this directory or the mPuu directory requires
+  that the Python search path is modified in each file.
+- Note that the _editing_ and all other work with the README and *.py files
+  should be done in the actual location of scgi-bin directory
+- CVS is used just to keep the version history
+- When the local work is done, the *.py file permissions in the scgi-bin
+  must be set to "chmod 555 *.py". This cannot be done with cvs unedit
+  command.

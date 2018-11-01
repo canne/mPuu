@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Petri Mäkijärvi (ESRF) -->
+<xs:schema xmlns="http://www.makijarvi.fi" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.makijarvi.fi" elementFormDefault="qualified" attributeFormDefault="unqualified">
+   <xs:element name="personalinfo">
+      <xs:annotation>
+         <xs:documentation>mPuu personal familytree information</xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="father">
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:minLength value="1"/>
+                     <xs:whiteSpace value="collapse"/>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:element>
+            <xs:element name="mother" type="xs:string"/>
+            <xs:element name="gender">
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:length value="1"/>
+                     <xs:pattern value="M|N|F"/>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:element>
+            <xs:element name="birth">
+               <xs:annotation>
+                  <xs:documentation>ISO 8601 date 'YYYY-MM-DD', or '-', or '?'</xs:documentation>
+               </xs:annotation>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:pattern value="(16|17|18|19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])"/>
+                     <xs:pattern value="-"/>
+                     <xs:pattern value="\?"/>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:element>
+            <xs:element name="death">
+               <xs:annotation>
+                  <xs:documentation>ISO 8601 date 'YYYY-MM-DD', or '-', or '?'</xs:documentation>
+               </xs:annotation>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:pattern value="(16|17|18|19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])"/>
+                     <xs:pattern value="-"/>
+                     <xs:pattern value="\?"/>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:element>
+            <xs:element name="name">
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:minLength value="1"/>
+                     <xs:whiteSpace value="collapse"/>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:element>
+            <xs:element name="spouse" minOccurs="0" maxOccurs="unbounded">
+               <xs:complexType>
+                  <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                     <xs:element name="spousename">
+                        <xs:simpleType>
+                           <xs:restriction base="xs:string">
+                              <xs:minLength value="1"/>
+                              <xs:whiteSpace value="collapse"/>
+                           </xs:restriction>
+                        </xs:simpleType>
+                     </xs:element>
+                     <xs:element name="childname" minOccurs="0" maxOccurs="unbounded">
+                        <xs:simpleType>
+                           <xs:restriction base="xs:string">
+                              <xs:minLength value="1"/>
+                              <xs:whiteSpace value="collapse"/>
+                           </xs:restriction>
+                        </xs:simpleType>
+                     </xs:element>
+                  </xs:sequence>
+               </xs:complexType>
+            </xs:element>
+            <xs:element name="town" minOccurs="0" maxOccurs="unbounded">
+               <xs:complexType>
+                  <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                     <xs:element name="townname">
+                        <xs:simpleType>
+                           <xs:restriction base="xs:string">
+                              <xs:minLength value="1"/>
+                              <xs:whiteSpace value="collapse"/>
+                           </xs:restriction>
+                        </xs:simpleType>
+                     </xs:element>
+                     <xs:element name="housename" minOccurs="0" maxOccurs="unbounded">
+                        <xs:simpleType>
+                           <xs:restriction base="xs:string">
+                              <xs:minLength value="1"/>
+                              <xs:whiteSpace value="collapse"/>
+                           </xs:restriction>
+                        </xs:simpleType>
+                     </xs:element>
+                  </xs:sequence>
+               </xs:complexType>
+            </xs:element>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>
