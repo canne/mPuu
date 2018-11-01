@@ -25,6 +25,11 @@ class mPuu {
     public static $mPuuXmlns;
     public static $mPuuSchemaLocation;
     public static $mPuuDbDir;
+    public static $mPuuPtDir;
+    public static $mPuuPtDirRelURL;
+    public static $mPuuCgiBinURL;
+    public static $mPuuTownsDir;
+    public static $mPuuHousesDir;
     public static $templateWikiName;
     public static $templateDate;
     public static $templateWikiTown;
@@ -49,7 +54,13 @@ class mPuu {
          * How the directories are located related to the MediaWiki's
          * installation directory
          */
-        $this->mPuuDbDir = '../../../../public_html/mPuu/db/pi';
+        $this->mPuuDbDir = '../../mPuu/db/pi';
+        $this->mPuuPtDir       = "../../mPuu/graphs/pt";
+        $this->mPuuPtDirRelURL = "/mPuu/graphs/pt";
+        $this->mPuuCgiBinURL   = "http://www.makijarvi.fi/cgi-bin";
+        $this->mPuuTownsDir    = "../../mPuu/xhtml/towns";
+        $this->mPuuHousesDir   = "../../mPuu/xhtml/houses";
+
         /**
          * Some values used in the template and that should be changed if the template is edited
          */
@@ -66,7 +77,7 @@ class mPuu {
          * How the directories are located related to the MediaWiki's
          * installation directory
          */
-        $this->mPuuSpamDir = "../mPuu/spam";
+        $this->mPuuSpamDir = "../../mPuu/spam";
         // Spammer's probable keywords
         $this->spamWords =
             array("haista \x76ittu","voi \x76ittu","\x76ittupää","\x70askapää","\x6Byrpä",
@@ -113,7 +124,7 @@ class mPuu {
         case "placetable":
             return $this->mPuuRenderPlaceTable( $params, $parser, $this->mPuuTownsDir, $fileNameBase );
         case "housetable":
-            return $this->mPuuRenderHouseTable( $params, $parser, $tis->mPuuHousesDir, $fileNameBase );
+            return $this->mPuuRenderHouseTable( $params, $parser, $this->mPuuHousesDir, $fileNameBase );
         case "showdberror":
             return $this->mPuuRenderDbError ( $params, $parser, $this->mPuuDbDir, $fileNameBase );
         default:
