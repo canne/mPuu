@@ -516,6 +516,7 @@ class mPuu {
         if ( (($thisTitle->getNamespace() == NS_TEMPLATE) ||
               ($thisTitle->getNamespace() == array_search ( 'mPuu', $wgExtraNamespaces)) ) ) {
             $namespaceXmlStoreAllowed = false; $developmentNamespace = true;
+            $this->mPuuJavaScriptAlert ( 'mPuu_developmentNamespace' )
             if ( $sysopUser )
                 $tmplOk = true;
         } // then this is a development namespace and the storing of the XML storing is not required
