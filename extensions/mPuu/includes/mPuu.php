@@ -413,6 +413,7 @@ class mPuu {
      */
     public function mPuuSpamFilter (&$user, &$text) {
 
+        $this->mPuuJavaScriptAlert ( 'mPuuSpamFilter()', "enter" );
         $keywordsfound = false;
         $showSpamWord = '';
         foreach ( $this->spamWords as $spamword ) {
