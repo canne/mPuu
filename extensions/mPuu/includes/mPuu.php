@@ -49,7 +49,7 @@ class mPuu {
          * How the directories are located related to the MediaWiki's
          * installation directory
          */
-        $this->mPuuDbDir = '../mPuu/db/pi';
+        $this->mPuuDbDir = '../../../../public_html/mPuu/db/pi';
         /**
          * Some values used in the template and that should be changed if the template is edited
          */
