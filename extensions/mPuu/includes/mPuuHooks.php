@@ -18,9 +18,9 @@
  * @version 2.0.0
  */
 
-class mPuuHooks {
+ $global static mPuu;
 
-    private $mPuu;
+class mPuuHooks {
 
 	/**
 	 * Initialization
@@ -28,6 +28,7 @@ class mPuuHooks {
 	 * @return true
 	 */
      public static function register( Parser &$parser ) {
+        $mPuu = new mPuu ( $parser );
         // Register the hook with the parser
         $parser->setHook( 'mPuu', [ 'mPuuHooks', 'render' ] );
         return true;
@@ -41,8 +42,7 @@ class mPuuHooks {
 	 * @return string
 	 */
     public static function render( $input, $args, Parser $parser ) {
-        $this->mPuu = new mPuu ( $parser );
-	    return $this->mPuu->mPuuRender( $input, $args );
+	    return $mPuu->mPuuRender( $input, $args );
     } // render method
 
     /** -----------------------------------------------------------------------
@@ -80,7 +80,7 @@ class mPuuHooks {
         } // then cannot get the file name for this instance
     
         // Set the file paths
-        $pathbase    = $$this->mPuu->mPuuDbDir . '/' . $filenamebase;
+        $pathbase    = $$mPuu->mPuuDbDir . '/' . $filenamebase;
         $errFileName = $pathbase . '.err';
     
         // Be optimistic, there will be no errors:
@@ -120,7 +120,7 @@ class mPuuHooks {
 
         $keywordsfound = false;
         $showSpamWord = '';
-        foreach ( $this->mPuu->spamWords as $spamword ) {
+        foreach ( $mPuu->spamWords as $spamword ) {
             if ( !stristr( $text, $spamword ) === FALSE ) {
                 $keywordsfound = true;
                 $showSpamWord = $spamword;
@@ -129,7 +129,7 @@ class mPuuHooks {
         } // for each spamword
         $blacklistedfound = false;
         $showblackListed = '';
-        foreach ( $this->mPuu->blacklistedPersons as $blacklisted ) {
+        foreach ( $mPuu->blacklistedPersons as $blacklisted ) {
             if ( !stristr( $text, $blacklisted ) === FALSE ) {
                 $blacklistedfound = true;
                 $showblackListed = $blacklisted;
@@ -141,23 +141,23 @@ class mPuuHooks {
             return true;
     
         // Save suspected article text in a file with user's name
-        $filename = $this->mPuu->mPuuSpamDir . '/' . $user->getName() . '.txt';
+        $filename = $mPuu->mPuuSpamDir . '/' . $user->getName() . '.txt';
         if ( !$handle = fopen( $filename, "a" ) ) {
-            $this->mPuu->mPuuJavaScriptAlert ( 'mPuu_spamsavefailed', "fopen ($filename)" );
+            $mPuu->mPuuJavaScriptAlert ( 'mPuu_spamsavefailed', "fopen ($filename)" );
         } // then cannot open the file
         else {
             if ( fwrite( $handle, $text . "\n" . '(' . $showSpamWord . ")\n") === FALSE ) {
-                $this->mPuu->mPuuJavaScriptAlert ( 'mPuu_spamsavefailed', "fwrite ($filename)" );
+                $mPuu->mPuuJavaScriptAlert ( 'mPuu_spamsavefailed', "fwrite ($filename)" );
             } // then cannot write to the file
             fclose ( $handle );
         } // else able to open the file
     
         if ( $blacklistedfound ) {
-             $this->mPuu->mPuuJavaScriptAlert ( 'mPuu_blacklistednosave', $showblackListed );
+             $mPuu->mPuuJavaScriptAlert ( 'mPuu_blacklistednosave', $showblackListed );
              return false;
         } // then put a priority on blacklisted persons, show one by one
 
-        $this->mPuu->mPuuJavaScriptAlert ( 'mPuu_spamnosave' );
+        $mPuu->mPuuJavaScriptAlert ( 'mPuu_spamnosave' );
     
         return false;
     
@@ -199,12 +199,12 @@ class mPuuHooks {
         // Find out what would be the Unix file name version of the title
         $thisTitle = $article->getTitle();
         if ( is_null( $thisTitle ) ) {
-            $this->mPuu->mPuuJavaScriptAlert ( 'mPuu_parsernotitle' );
+            $mPuu->mPuuJavaScriptAlert ( 'mPuu_parsernotitle' );
             return 'PARSE_ERROR';
         } // then cannot figure out what is the title of this article
         $filenamebase = $thisTitle->getDBkey();
         if ( $filenamebase == "" ) {
-            $this->mPuu->mPuuJavaScriptAlert ( 'mPuu_parsernofilename' );
+            $mPuu->mPuuJavaScriptAlert ( 'mPuu_parsernofilename' );
             return 'PARSE_ERROR';
         } // then cannot get the file name for this instance
 
@@ -226,7 +226,7 @@ class mPuuHooks {
         } // then this is a development namespace and the storing of the XML storing is not required
 
         // Set the file paths
-        $pathbase    = $this->mPuu->mPuuDbDir . '/' . $filenamebase;
+        $pathbase    = $mPuu->mPuuDbDir . '/' . $filenamebase;
         $xmlFileName = $pathbase . '.xml';
         $inpFileName = $pathbase . '.inp';
         $errFileName = $pathbase . '.err';
@@ -240,16 +240,16 @@ class mPuuHooks {
     
         // Save article text into a file for line based parsing
         if ( !$inpHandle = fopen( $inpFileName, "w" ) ) {
-            $this->mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fopen (${inpFileName})") );
+            $mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fopen (${inpFileName})") );
             return 'PARSE_ERROR';
         } // then cannot open the file for writing
         if ( fwrite( $inpHandle, $text ) === FALSE) {
-            $this->mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fwrite (${inpFileName})") );
+            $mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fwrite (${inpFileName})") );
             return 'PARSE_ERROR';
         } // then cannot write into the file
         fclose( $inpHandle );
         if ( !$inpHandle = fopen( $inpFileName, "r" ) ) {
-            $this->mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fopen (${inpFileName})") );
+            $mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fopen (${inpFileName})") );
             return 'PARSE_ERROR';
         } // then cannot open the file for writing
     
@@ -263,7 +263,7 @@ class mPuuHooks {
         } // while not found the marker line and not end of file
         $sLines[0] = $line;
         if ( !$tablefound ) {
-            $this->mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsernostartmarker',$errFileName );
+            $mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsernostartmarker',$errFileName );
             fclose ( $inpHandle );
             return 'PARSE_ERROR';
         } // could not find the marker, strange.
@@ -271,7 +271,7 @@ class mPuuHooks {
         // Read the next line, which should start the personalinfo table
         $line = fgets ( $inpHandle );
         if ( (strstr ( $line, 'MPuu Table Start') === FALSE) || (strstr ( $line, 'class=personalinfo') === FALSE) ) {
-            $this->mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsernostarttable', $errFileName, trim($line) );
+            $mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsernostarttable', $errFileName, trim($line) );
             fclose ( $inpHandle );
             return 'PARSE_ERROR';
         } // then this is not personalinfo table
@@ -322,7 +322,7 @@ class mPuuHooks {
         } // Then did not find the gender data
         $genderX = strtoupper ( $genderX );
         if ( ($genderX != $genderFemale) && ($genderX != $genderMale) ) {
-            $this->mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsergendervalue', $errFileName,
+            $mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsergendervalue', $errFileName,
                                           trim ($genderX) . '\n(' . $genderFemale . '/' . $genderMale . ')' );
             fclose ( $inpHandle );
             return 'PARSE_ERROR';
@@ -348,7 +348,7 @@ class mPuuHooks {
         if ( $birthDate != '?' ) {
             if ( $birthDate != $templateDate ) {
                 if ( !$this->mPuuDateCheck ( $birthDate ) ) {
-                    $this->mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parserdatevalue', $errFileName,
+                    $mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parserdatevalue', $errFileName,
                                               trim ($birthDate) . '\n(' . $templateDate . ')' );
                     fclose ( $inpHandle );
                     return 'PARSE_ERROR';
@@ -364,7 +364,7 @@ class mPuuHooks {
         if ( ($deathDate != '?') &&  ($deathDate != '-') ) {
             if ( $deathDate != $templateDate ) {
                 if ( !$this->mPuuDateCheck ( $deathDate ) ) {
-                    $this->mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parserdatevalue', $errFileName,
+                    $mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parserdatevalue', $errFileName,
                                               trim ($deathDate) . '\n(' . $templateDate . ')' );
                     fclose ( $inpHandle );
                     return 'PARSE_ERROR';
@@ -388,7 +388,7 @@ class mPuuHooks {
         $nameLineWithTemplate = '{{MPuu LinkItem | linkText={{PAGENAME}}}}';
         $line = fgets ( $inpHandle );
         if ( (strstr ( $line, $nameLineWithTemplate ) === FALSE) ) {
-            $this->mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsernamemismatch', $errFileName,
+            $mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parsernamemismatch', $errFileName,
                                       $nameLineWithTemplate . '\n(' . trim($line) . ')' );
             fclose ( $inpHandle );
             return 'PARSE_ERROR';
@@ -428,13 +428,13 @@ class mPuuHooks {
         // Ready to (re)write the personal information XML database file
         if ( $namespaceXmlStoreAllowed ) {
             if ( !$outHandle = fopen ( $xmlFileName, "w" ) ) {
-                $this->mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parserxmlsavefailed', $errFileName,
+                $mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parserxmlsavefailed', $errFileName,
                                           trim ("fopen (${xmlFileName})") );
                 fclose ( $inpHandle );
                 return 'PARSE_ERROR';
             } // then cannot open file
             if ( fwrite ( $outHandle, $xmlBuffer ) === FALSE ) {
-                $this->mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parserxmlsavefailed', $errFileName,
+                $mPuu->mPuuJavaScriptAlertSave ( 'mPuu_parserxmlsavefailed', $errFileName,
                                           trim ("fwrite (${xmlFileName})") );
                 fclose ( $inpHandle );
                 return 'PARSE_ERROR';
