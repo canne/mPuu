@@ -2,10 +2,11 @@ This software is licensed as explained in the distributions LICENSE file.
 
 By browsing the site makijarvi.fi you would understand what
 this family tree extension package for Mediawi is doing:
-- it parses XML files in local file system DB from MediaWiki templates
+- it parses application specific MediaWiki templates ...
+- ... top create XML files in local file system DB
 - it renders different class views out of these XML files:
-- in order to show family tree (father but also mother line),
-- location (town/street/house) data and relationships
+- * family tree (father but also mother line),
+- * location (town/street/house) data and relationships
 - allows running big family tree PDF-file from the "database"
 
 XML, Python (very old, 2 something) and PHP (7).
