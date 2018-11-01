@@ -534,12 +534,14 @@ class mPuu {
             unlink ( $errFileName );
     
         // Save article text into a file for line based parsing
+        if ( file_exists ( $inpFileName ) )
+            unlink ( $inpFileName );
         if ( !$inpHandle = fopen( $inpFileName, "w" ) ) {
             $this->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fopen (${inpFileName},w)") );
             return 'PARSE_ERROR';
         } // then cannot open the file for writing
         if ( fwrite( $inpHandle, $text ) === FALSE) {
-            $this->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fwrite (${inpFileName}, ${text})") );
+            $this->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fwrite (${inpFileName})") );
             return 'PARSE_ERROR';
         } // then cannot write into the file
         fclose( $inpHandle );
@@ -722,6 +724,8 @@ class mPuu {
 
         // Ready to (re)write the personal information XML database file
         if ( $namespaceXmlStoreAllowed ) {
+            if ( file_exists ( $xmlFileName ) )
+                unlink ( $xmlFileName );
             if ( !$outHandle = fopen ( $xmlFileName, "w" ) ) {
                 $this->mPuuJavaScriptAlertSave ( 'mPuu_parserxmlsavefailed', $errFileName,
                                           trim ("fopen (${xmlFileName})") );
