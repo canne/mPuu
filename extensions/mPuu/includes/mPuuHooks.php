@@ -18,7 +18,7 @@
  * @version 2.0.0
  */
 
- global static $mPuu;
+global $mPuu;
 
 class mPuuHooks {
 
