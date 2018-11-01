@@ -42,7 +42,7 @@ class mPuuHooks {
 	 */
     public static function render( $input, $args, Parser $parser ) {
         $mPuu = new mPuu ( $parser );
-	    return $mPuu->mPuuRender( $input, $args );
+	    return $mPuu->mPuuRender( $input, $args, $parser );
     } // render method
 
     /** -----------------------------------------------------------------------
