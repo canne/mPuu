@@ -28,7 +28,7 @@ class mPuuHooks {
 	 * @return true
 	 */
      public static function register( Parser &$parser ) {
-        if ( $mPuu = new mPuu ( $parser );
+        $mPuu = new mPuu ( $parser );
         // Register the hook with the parser
         $parser->setHook( 'mPuu', [ 'mPuuHooks', 'render' ] );
         return true;
