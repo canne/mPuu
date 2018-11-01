@@ -83,7 +83,7 @@ class mPuuHooks {
         } // then cannot get the file name for this instance
     
         // Set the file paths
-        $pathbase    = $$mPuu->mPuuDbDir . '/' . $filenamebase;
+        $pathbase    = $mPuu->mPuuDbDir . '/' . $filenamebase;
         $errFileName = $pathbase . '.err';
     
         // Be optimistic, there will be no errors:
