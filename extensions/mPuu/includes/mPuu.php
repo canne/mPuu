@@ -55,11 +55,11 @@ class mPuu {
          * installation directory
          */
         $this->mPuuDbDir = '../mPuu/db/pi';
-        $this->mPuuPtDir       = "../../mPuu/graphs/pt";
+        $this->mPuuPtDir       = "../mPuu/graphs/pt";
         $this->mPuuPtDirRelURL = "/mPuu/graphs/pt";
         $this->mPuuCgiBinURL   = "http://www.makijarvi.fi/cgi-bin";
-        $this->mPuuTownsDir    = "../../mPuu/xhtml/towns";
-        $this->mPuuHousesDir   = "../../mPuu/xhtml/houses";
+        $this->mPuuTownsDir    = "../mPuu/xhtml/towns";
+        $this->mPuuHousesDir   = "../mPuu/xhtml/houses";
 
         /**
          * Some values used in the template and that should be changed if the template is edited
