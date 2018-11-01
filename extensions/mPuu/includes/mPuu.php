@@ -117,7 +117,7 @@ class mPuu {
         case "showdberror":
             return $this->mPuuRenderDbError ( $params, $parser, $this->mPuuDbDir, $fileNameBase );
         default:
-            return htmlspecialchars( wfMsg( 'mPuu_unknownaction', $params["action"]) );
+            return htmlspecialchars( wfMessage( 'mPuu_unknownaction', $params["action"]) );
         } // switch
 	
     } // mPuuRender()
@@ -132,7 +132,7 @@ class mPuu {
      */
     public function mPuuJavaScriptAlertSave ( $message, $errFileName, $msgoption = "")
     {
-        $errMsg = wfMsg( $message, ($msgoption==""?"":trim ( $msgoption )) );
+        $errMsg = wfMessage( $message, ($msgoption==""?"":trim ( $msgoption )) );
         if ( $errFileName == "" ) {
             $this->$this->mPuuJavaScriptAlert ( 'mPuu_parsefilefailed', "errFileName=NULL" );
         } // then no reason to continue
@@ -173,7 +173,7 @@ class mPuu {
                 fclose( $errHandle );
             } // then there is contents to read
         } // then wanted insert a text from an error file
-        $errMsg = wfMsg( $message, ($msgoption==""?"":trim ( $msgoption )) );
+        $errMsg = wfMessage( $message, ($msgoption==""?"":trim ( $msgoption )) );
         $mscript  = '<script type="text/javascript">';
         $mscript .= 'alert("';
         $mscript .= ($errFileContents==""?$errMsg:$errFileContents . '\n\n-----------\n\n' . $errMsg) . '");';
@@ -201,7 +201,7 @@ class mPuu {
         // Check arguments
         $outputclass = $params["class"];
         if ( ($outputclass != "father") && ($outputclass != "mother") && ($outputclass != "both") )
-            return htmlspecialchars( wfMsg( 'mPuu_unknownclass', $params["class"]) );
+            return htmlspecialchars( wfMessage( 'mPuu_unknownclass', $params["class"]) );
 
         $retvalue = "";
         $oTypeArr = array ( 'father', 'mother' );
@@ -213,7 +213,7 @@ class mPuu {
                 $graphFileURL  = $mPuuPtDirRelURL . '/' . $fileNameBase . '_' . $oType . '.png';
                 if ( !file_exists ( $graphFileName ) )
                     return "\n" . '<div class="mpuu-nodata">'
-                        . htmlspecialchars ( wfMsg( 'mPuu_nofamilydata' ) ). '</div>';
+                        . htmlspecialchars ( wfMessage( 'mPuu_nofamilydata' ) ). '</div>';
                 $retvalue .= "\n" . '<div class="mpuu-ptgraph-' . $oType . '">';
                 $okMap = false;
                 if ( (file_exists ( $cmapFileName )) && !(filesize ( $cmapFileName ) == 0) ) {
@@ -235,7 +235,7 @@ class mPuu {
                     $retvalue .= ' />' . "\n";
                 $retvalue .= "\n" . '<div class="mpuu-printlink"><a href="' . $mPuuCgiBinURL;
                 $retvalue .= '/mpuu-makeptpdf.py?name=' . $urlNameBase . '&line=' . $oType;
-                $retvalue .= '" title="PDF">' . htmlspecialchars ( wfMsg( 'mPuu_treeprintview' ) );
+                $retvalue .= '" title="PDF">' . htmlspecialchars ( wfMessage( 'mPuu_treeprintview' ) );
                 $retvalue .= '</a></div>'  . "\n"; // ends the printable view text block
                 $retvalue .= '</div>'  . "\n"; // ends the graphics block
             } // then requested output type is matching a possible, generated file type
@@ -261,7 +261,7 @@ class mPuu {
         // Check arguments
         $outputclass = $params["class"];
         if ( ($outputclass != "houses") && ($outputclass != "persons") && ($outputclass != "all") )
-            return htmlspecialchars( wfMsg( 'mPuu_unknownclass', $params["class"]) );
+            return htmlspecialchars( wfMessage( 'mPuu_unknownclass', $params["class"]) );
 
         $retvalue = "";
         if ( ($outputclass == "persons") || ($outputclass == "all") ) {
@@ -288,7 +288,7 @@ class mPuu {
         } // the the persons list is requested
 
         if ( $retvalue == "" )
-            return '<div class="mpuu-nodata">'. htmlspecialchars ( wfMsg( 'mPuu_noplacedata' ) ). '</div>';
+            return '<div class="mpuu-nodata">'. htmlspecialchars ( wfMessage( 'mPuu_noplacedata' ) ). '</div>';
 
         return $retvalue;
     
@@ -313,7 +313,7 @@ class mPuu {
         // Check arguments
         $outputclass = $params["class"];
         if ( ($outputclass != "places") && ($outputclass != "persons") && ($outputclass != "all") )
-            return htmlspecialchars( wfMsg( 'mPuu_unknownclass', $params["class"]) );
+            return htmlspecialchars( wfMessage( 'mPuu_unknownclass', $params["class"]) );
         if ( array_key_exists( 'nickname', $params ) ) {
             $nickname = $params["nickname"];
             if ( $nickname != "" ) {
@@ -345,7 +345,7 @@ class mPuu {
         } // the the persons list is requested
 
         if ( $retvalue == "" )
-            return '<div class="mpuu-nodata">'. htmlspecialchars ( wfMsg( 'mPuu_nohousedata' ) ). '</div>';
+            return '<div class="mpuu-nodata">'. htmlspecialchars ( wfMessage( 'mPuu_nohousedata' ) ). '</div>';
 
         return $retvalue;
     
@@ -371,7 +371,7 @@ class mPuu {
                 return '<div class="mpuu-xmlfileok"><a href="../' . $xmlFileName . '">xml</a></div>';
             } // Then Ok, the file is there, show a link into it
             $parser->disableCache();
-            return '<div class="mpuu-xmlfileerr">' . wfMsg('mPuu_missingxmlfile', $xmlFileName) . '</div>';
+            return '<div class="mpuu-xmlfileerr">' . wfMessage('mPuu_missingxmlfile', $xmlFileName) . '</div>';
         } // then no error file, XML should be OK then
         if ( !$errHandle = fopen( $errFileName, "r" ) ) {
             $this->mPuuJavaScriptAlert ( 'mPuu_parsefilefailed', "fopen ($errFileName)" );
