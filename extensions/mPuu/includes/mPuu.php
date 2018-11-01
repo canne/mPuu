@@ -539,7 +539,7 @@ class mPuu {
             return 'PARSE_ERROR';
         } // then cannot open the file for writing
         if ( fwrite( $inpHandle, $text ) === FALSE) {
-            $this->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fwrite (${inpFileName},$(text))") );
+            $this->mPuuJavaScriptAlertSave ( 'mPuu_parsefilefailed', $errFileName, trim ("fwrite (${inpFileName}, ${text})") );
             return 'PARSE_ERROR';
         } // then cannot write into the file
         fclose( $inpHandle );
