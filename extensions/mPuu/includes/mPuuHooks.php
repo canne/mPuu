@@ -28,7 +28,6 @@ class mPuuHooks {
 	 * @return true
 	 */
      public static function register( Parser &$parser ) {
-        $this->mPuu = new mPuu ( $parser );
         // Register the hook with the parser
         $parser->setHook( 'mPuu', [ 'mPuuBox', 'render' ] );
         return true;
@@ -42,6 +41,7 @@ class mPuuHooks {
 	 * @return string
 	 */
     public static function render( $input, $args, Parser $parser ) {
+        $this->mPuu = new mPuu ( $parser );
 	    return $this->mPuu->mPuuRender( $input, $args );
     } // render method
 
