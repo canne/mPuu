@@ -54,7 +54,7 @@ class mPuu {
          * How the directories are located related to the MediaWiki's
          * installation directory
          */
-        $this->mPuuDbDir = '../../mPuu/db/pi';
+        $this->mPuuDbDir = '../mPuu/db/pi';
         $this->mPuuPtDir       = "../../mPuu/graphs/pt";
         $this->mPuuPtDirRelURL = "/mPuu/graphs/pt";
         $this->mPuuCgiBinURL   = "http://www.makijarvi.fi/cgi-bin";
