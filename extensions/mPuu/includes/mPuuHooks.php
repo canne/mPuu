@@ -54,7 +54,7 @@ class mPuuHooks {
      * Success return 'true', otherwise 'false' and the document gets not saved.
      * @param article the WikiPage (object) being saved
      * @param user the User (object) saving the articlw
-     * @param text the new article content, as a Content object
+     * @param content the new article content, as a Content object
      * @param summary the article summary (comment)
      * @param minoredit minor flag
      * @param watchthis watch flag (not used, aka always null)
@@ -63,23 +63,23 @@ class mPuuHooks {
      * @param status Status (object)
      * @return bool Return false to abort saving the page
      */
-    public static function mPuuArticleSaveHook (&$article, &$user, &$text, &$summary,
+    public static function mPuuArticleSaveHook (&$article, &$user, &$content, &$summary,
                                                 $minoredit, $watchthis, $sectionanchor,
                                                 &$flags, &$status ) {
         $mPuu = new mPuu ( $parser );
-        // Launch some annoyance against the spammers and maybe against the hotheads
-        if ( !$mPuu->mPuuSpamFilter( $user, $text ) )
-            return false;
         // Find out what would be the Unix file name version of the title
         $thisTitle = $article->getTitle();
         if ( is_null( $thisTitle ) ) {
             $mPuu->mPuuJavaScriptAlert ( 'mPuu_parsernotitle' );
             return 'PARSE_ERROR';
         } // then cannot figure out what is the title of this article
-        if ( is_null( $text ) ) {
+        if ( $content->isEmpty() ) {
             $mPuu->mPuuJavaScriptAlert ( 'mPuu_parsernotext' );
             return 'PARSE_ERROR';
         } // then there is nothing to parse
+        // Launch some annoyance against the spammers and maybe against the hotheads
+        if ( !$mPuu->mPuuSpamFilter( $user, $text ) )
+            return false;
         $filenamebase = $thisTitle->getDBkey();
         if ( $filenamebase == "" ) {
             $mPuu->mPuuJavaScriptAlert ( 'mPuu_parsernofilename' );
@@ -95,7 +95,7 @@ class mPuuHooks {
             unlink ( $errFileName );
     
         // Check and parse the text to find mPuu information and convert it to XML database file
-        $parseret = $mPuu->mPuuParsePersonalInformation( $article, $text , $user );
+        $parseret = $mPuu->mPuuParsePersonalInformation( $article, $content->getNativeData() , $user );
         if ( $parseret == "" )
             return true;
         if ( $parseret == "OK" )
