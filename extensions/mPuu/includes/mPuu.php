@@ -22,7 +22,6 @@ class mPuu {
 
     private $mParser;
 
-    public static $mDir;
     public static $mPuuXmlns;
     public static $mPuuSchemaLocation;
     public static $mPuuDbDir;
@@ -39,7 +38,6 @@ class mPuu {
 	public function __construct( $parser ) {
 
         $this->mParser = $parser;
-        $this->mDir = $this->mParser->getTargetLanguage()->getDir();
         // ----------------- Configuration -------------------
         /**
          * The below is the XMLSchema namespace and the schema location.
