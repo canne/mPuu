@@ -108,14 +108,14 @@ class mPuu {
         } // then cannot get the file name for this instance
         switch ($params["action"]) {
         case "familytable":
-            return mPuuRenderFamilyTable( $params, $parser, $this->mPuuPtDir, $this->mPuuPtDirRelURL,
+            return $this->mPuuRenderFamilyTable( $params, $parser, $this->mPuuPtDir, $this->mPuuPtDirRelURL,
                                           $this->mPuuCgiBinURL, $fileNameBase, $urlNameBase );
         case "placetable":
-            return mPuuRenderPlaceTable( $params, $parser, $this->mPuuTownsDir, $fileNameBase );
+            return $this->mPuuRenderPlaceTable( $params, $parser, $this->mPuuTownsDir, $fileNameBase );
         case "housetable":
-            return mPuuRenderHouseTable( $params, $parser, $tis->mPuuHousesDir, $fileNameBase );
+            return $this->mPuuRenderHouseTable( $params, $parser, $tis->mPuuHousesDir, $fileNameBase );
         case "showdberror":
-            return mPuuRenderDbError ( $params, $parser, $this->mPuuDbDir, $fileNameBase );
+            return $this->mPuuRenderDbError ( $params, $parser, $this->mPuuDbDir, $fileNameBase );
         default:
             return htmlspecialchars( wfMsg( 'mPuu_unknownaction', $params["action"]) );
         } // switch
