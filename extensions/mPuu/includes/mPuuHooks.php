@@ -76,6 +76,10 @@ class mPuuHooks {
             $mPuu->mPuuJavaScriptAlert ( 'mPuu_parsernotitle' );
             return 'PARSE_ERROR';
         } // then cannot figure out what is the title of this article
+        if ( is_null( $text ) ) {
+            $mPuu->mPuuJavaScriptAlert ( 'mPuu_parsernotext' );
+            return 'PARSE_ERROR';
+        } // then there is nothing to parse
         $filenamebase = $thisTitle->getDBkey();
         if ( $filenamebase == "" ) {
             $mPuu->mPuuJavaScriptAlert ( 'mPuu_parsernofilename' );
