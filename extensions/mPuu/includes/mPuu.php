@@ -618,9 +618,9 @@ class mPuu {
             return 'PARSE_ERROR';
         } // Then did not find the gender data
         $genderX = strtoupper ( $genderX );
-        if ( ($genderX != $genderFemale) && ($genderX != $genderMale) ) {
+        if ( ($genderX != $this->genderFemale) && ($genderX != $this->genderMale) ) {
             $this->mPuuJavaScriptAlertSave ( 'mPuu_parsergendervalue', $errFileName,
-                                          trim ($genderX) . '\n(' . $genderFemale . '/' . $genderMale . ')' );
+                                          trim ($genderX) . '\n(' . $this->genderFemale . '/' . $this->genderMale . ')' );
             fclose ( $inpHandle );
             return 'PARSE_ERROR';
         } // Then the given gender data is not valid
