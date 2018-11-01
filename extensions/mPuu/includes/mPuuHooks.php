@@ -29,7 +29,7 @@ class mPuuHooks {
 	 */
      public static function register( Parser &$parser ) {
         // Register the hook with the parser
-        $parser->setHook( 'mPuu', [ 'mPuuHook', 'render' ] );
+        $parser->setHook( 'mPuu', [ 'mPuuHooks', 'render' ] );
         return true;
         } // register()
 
