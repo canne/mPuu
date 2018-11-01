@@ -1,6 +1,6 @@
 <?php
 
-**
+/**
  * mPuu is an extension for MediaWiki for simple family tree table
  * building and maintenance.
  *
