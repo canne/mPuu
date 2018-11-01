@@ -66,10 +66,11 @@ class mPuuHooks {
     public static function mPuuArticleSaveHook (&$article, &$user, &$text, &$summary,
                                                 $minoredit, $watchthis, $sectionanchor,
                                                 &$flags, &$status ) {
-      // Launch some annoyance against the spammers and maybe against the hotheads
+        $mPuu = new mPuu ( $parser );
+        // Launch some annoyance against the spammers and maybe against the hotheads
         if ( !$mPuu->mPuuSpamFilter( $user, $text ) )
             return false;
-      // Find out what would be the Unix file name version of the title
+        // Find out what would be the Unix file name version of the title
         $thisTitle = $article->getTitle();
         if ( is_null( $thisTitle ) ) {
             $mPuu->mPuuJavaScriptAlert ( 'mPuu_parsernotitle' );
